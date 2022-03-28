@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MagicMushroom is ERC721 {
+contract MagicMushroom is ERC721, Ownable{
 
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
@@ -13,7 +14,7 @@ contract MagicMushroom is ERC721 {
 
   constructor() ERC721("MagicMushroom", "MUSH") {}
 
-  function mintMushroom(address _minter) public returns (uint256){
+  function mintMushroom(address _minter) public onlyOwner returns (uint256){
 
     _tokenIds.increment();  // Increment token ids
 
